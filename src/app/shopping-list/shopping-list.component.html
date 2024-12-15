@@ -1,0 +1,55 @@
+<app-navbar></app-navbar>
+<div class="page-container">
+    <div class="shopping-list-container">
+      <div class="header">
+        <h2>Shopping Cart</h2>
+      </div>
+      <div *ngIf="updatedShoppingList.length > 0; else emptyShoppingList">
+        <div class="recipe-item" *ngFor="let recipe of updatedShoppingList">
+          <div class="recipe-content">
+            <img
+              src="{{recipe.imgUrl}}"
+              alt=""
+              class="recipe-img"
+            />
+            <div class="recipe-details">
+              <h3>{{ recipe.name }}</h3>
+              <ul>
+                <li *ngFor="let ingredient of recipe.ingredients">
+                  {{ ingredient.name }}: ${{ ingredient.price }}
+                </li>
+              </ul>
+            </div>
+            <div class="recipe-stats">
+              <ul>
+                <li><strong>Cuisine:</strong> {{ recipe.cuisine }}</li>
+                <li><strong>Calories:</strong> {{ recipe.calories }}</li>
+                <li>
+                  <strong>Cooking Time:</strong> {{ recipe.cookingTime }} mins
+                </li>
+                <li>
+                  <strong>Total Cost:</strong>
+                  <span style="color: #4caf50">$ {{ recipe.totalCost }}</span>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <button (click)="deleteRecipe(recipe.id)" class="trash-btn">
+            <i class="fa fa-trash"></i>
+          </button>
+        </div>
+  
+        <div class="total-cost">
+          <h3>Total Price: ${{ totalPrice }}</h3>
+        </div>
+      </div>
+    </div>
+  
+  </div>
+  <ng-template #emptyShoppingList>
+    <p class="empty-list-text">Your shopping list is empty!</p>
+  </ng-template>
+  
+    <footer class="p-4 text-center bg-gray-700">
+        <p class="p-4 text-center text-white">© 2024 Ammar yasser Enterprises Limited</p>
+    </footer>

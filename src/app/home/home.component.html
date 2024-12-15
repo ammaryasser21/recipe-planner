@@ -1,0 +1,52 @@
+<app-navbar></app-navbar>
+
+<div class="container p-6">
+    <div class="mb-6 search-container">
+         <form [formGroup]="searchForm" class="flex items-center gap-4">
+          <div class="flex-1">
+              <label class="block mb-1 font-medium text-gray-700">Search Recipe</label>
+                <input type="text" placeholder="Search Recipe..." formControlName="query" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500">
+            </div>
+            <div class="flex-1">
+                <label class="block mb-1 font-medium text-gray-700">Cuisine</label>
+               <input type="text" placeholder="Cuisine" formControlName="cuisine" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500">
+             </div>
+             <div class="flex-1">
+                 <label class="block mb-1 font-medium text-gray-700">Ingredients</label>
+                <input type="text" placeholder="Ingredients" formControlName="ingredients" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500">
+              </div>
+             <div class="flex-1">
+                 <label class="block mb-1 font-medium text-gray-700">Cooking Time</label>
+                 <input type="number" placeholder="Cooking Time" formControlName="cookingTime" class="w-full p-2 border border-gray-300 rounded focus:outline-none focus:border-blue-500">
+              </div>
+            <label class="inline-flex items-center text-gray-700"><input type="checkbox" formControlName="follow" class="mr-2 border-gray-300 rounded focus:ring-blue-500">Followed Users</label>
+            <label class="inline-flex items-center text-gray-700"><input type="checkbox" formControlName="posted"  class="mr-2 border-gray-300 rounded focus:ring-blue-500">Posted by user</label>
+            <button type="submit" class="px-4 py-2 font-semibold text-white bg-blue-500 rounded hover:bg-blue-600 focus:outline-none" (click)="searchRecipes()">Search</button>
+         </form>
+    </div>
+   <div *ngIf="currentUser" class="mb-4">
+       </div>
+    <div class="grid grid-cols-1 gap-4 recipes-container sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <div *ngFor="let recipe of recipes" class="overflow-hidden bg-white rounded-lg shadow-md recipe-card">
+            <img src="{{recipe.imageUrl}}" alt="" class="object-cover w-full h-48 rounded-t-lg cursor-pointer" (click)="navigateToDetails(recipe.id)">
+            <div class="p-4">
+                <div class="flex justify-around mb-2">
+                    <button class="text-gray-600 cursor-pointer hover:text-blue-600" (click)="likeRecipe(recipe.id)" aria-label="Like recipe">
+                        <mat-icon  class="inline-block w-6 h-6 text-gray-600 hover:text-blue-600">thumb_up</mat-icon>
+                    </button>
+                    <button class="text-gray-600 cursor-pointer hover:text-yellow-600"  aria-label="Add to shopping list" (click)="addToShoppingList(recipe)">
+                        <mat-icon  class="inline-block w-6 h-6 text-gray-600 hover:text-yellow-600">shopping_cart</mat-icon>
+                    </button>
+                    <button class="text-gray-600 cursor-pointer hover:text-blue-600" (click)="saveRecipe(recipe.id)" aria-label="Save recipe">
+                        <mat-icon  class="inline-block w-6 h-6 text-gray-600 hover:text-blue-600">save</mat-icon>
+                    </button>
+                </div>
+                <h3 class="text-xl font-semibold text-gray-700">{{ recipe.name }}</h3>
+            </div>
+        </div>
+    </div>
+</div>
+
+<footer class="p-4 text-center bg-gray-700">
+    <p class="p-4 text-center text-white">© 2024 Ammar yasser Enterprises Limited</p>
+</footer>

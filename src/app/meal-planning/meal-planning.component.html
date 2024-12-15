@@ -1,0 +1,139 @@
+<app-navbar></app-navbar>
+<div class="p-6 font-sans bg-gray-100 meal-planning-container">
+  <h2 class="mb-8 text-4xl font-bold text-center text-transparent page-title bg-gradient-to-r from-yellow-400 to-red-500 bg-clip-text">Meal Planning Made Easy</h2>
+  <div class="grid grid-cols-1 gap-5 meal-lists-container sm:grid-cols-2 lg:grid-cols-3">
+      @for (time of timeSlots; track $index) {
+          @switch (time) {
+              @case ('Breakfast') {
+                  <div class="flex flex-col overflow-hidden bg-white rounded-lg shadow-md meal-list">
+                      <h3 class="py-2 text-lg font-bold text-center text-white bg-red-500 time-slot">{{ time }}</h3>
+                      <div class="flex flex-col items-center p-4 meals-container">
+                          <div *ngIf="recipes.length > 0; else emptyList">
+                              @for (recipe of recipes; track $index) {
+                                  @if (recipe.timeSlot === time) {
+                                      <div class="flex flex-col items-center w-full pb-4 border-b border-gray-200 meal-item last:border-b-0">
+                                          <img class="object-cover w-full h-48 rounded-md" src="{{recipe.imageUrl}}" alt="{{ recipe.name }}" />
+                                          <div class="flex flex-col items-start w-full p-2 meal-details">
+                                              <h3 class="mb-1 text-xl font-semibold text-gray-800">{{ recipe.name }}</h3>
+                                              <p class="mb-2 text-sm text-gray-500 cooking-time">
+                                                  Cooking time: {{ recipe.cookingTime }} m | {{ recipe.calories }} cal
+                                              </p>
+                                              <p class="mb-1 font-bold text-green-500 ingredients">Ingredients:</p>
+                                              <ul *ngIf="recipe.ingredients" class="flex flex-wrap gap-2 mb-2">
+                                                  <li *ngFor="let ingredient of recipe.ingredients" class="px-2 py-1 text-sm bg-gray-200 rounded">
+                                                      {{ ingredient.name }}: <span class="text-green-500">${{ ingredient.price }}</span>
+                                                  </li>
+                                              </ul>
+                                              <div>
+                                                  <h5 class="mb-1 font-semibold">macros:</h5>
+                                                  <ul *ngIf="recipe.calories" class="flex flex-wrap gap-2">
+                                                      <li *ngFor="let macro of recipe.macros" class="text-sm">
+                                                          carbs: {{ macro.carb }} | protien: {{ macro.protien }} | fats: {{ macro.fats }}
+                                                      </li>
+                                                  </ul>
+                                              </div>
+                                              <button (click)="removeFromList(recipe.id)" class="self-center px-4 py-2 mt-2 font-bold text-white bg-pink-500 rounded hover:bg-pink-700">Remove</button>
+                                          </div>
+                                      </div>
+                                  }
+                              }
+                          </div>
+                      </div>
+                  </div>
+              }
+              @case ('Lunch') {
+                  <div class="flex flex-col overflow-hidden bg-white rounded-lg shadow-md meal-list">
+                      <h3 class="py-2 text-lg font-bold text-center text-white bg-orange-500 time-slot">{{ time }}</h3>
+                      <div class="flex flex-col items-center p-4 meals-container">
+                          <div *ngIf="recipes.length > 0; else emptyList">
+                              @for (recipe of recipes; track $index) {
+                                  @if (recipe.timeSlot === time) {
+                                      <div class="flex flex-col items-center w-full pb-4 border-b border-gray-200 meal-item last:border-b-0">
+                                          <img class="object-cover w-full h-48 rounded-md" src="{{recipe.imageUrl}}" alt="{{ recipe.name }}" />
+                                          <div class="flex flex-col items-start w-full p-2 meal-details">
+                                              <h3 class="mb-1 text-xl font-semibold text-gray-800">{{ recipe.name }}</h3>
+                                              <p class="mb-2 text-sm text-gray-500 cooking-time">
+                                                  Cooking time: {{ recipe.cookingTime }} m | {{ recipe.calories }} cal
+                                              </p>
+                                              <p class="mb-1 font-bold text-green-500 ingredients">Ingredients:</p>
+                                              <ul *ngIf="recipe.ingredients" class="flex flex-wrap gap-2 mb-2">
+                                                  <li *ngFor="let ingredient of recipe.ingredients" class="px-2 py-1 text-sm bg-gray-200 rounded">
+                                                      {{ ingredient.name }}: <span class="text-green-500">${{ ingredient.price }}</span>
+                                                  </li>
+                                              </ul>
+                                               <div>
+                                                    <h5 class="mb-1 font-semibold">macros:</h5>
+                                                    <ul *ngIf="recipe.calories" class="flex flex-wrap gap-2">
+                                                        <li *ngFor="let macro of recipe.macros" class="text-sm">
+                                                            carbs: {{ macro.carb }} | protien: {{ macro.protien }} | fats: {{ macro.fats }}
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                              <button (click)="removeFromList(recipe.id)" class="self-center px-4 py-2 mt-2 font-bold text-white bg-pink-500 rounded hover:bg-pink-700">Remove</button>
+                                          </div>
+                                      </div>
+                                  }
+                              }
+                          </div>
+                      </div>
+                  </div>
+              }
+              @case ('Dinner') {
+                  <div class="flex flex-col overflow-hidden bg-white rounded-lg shadow-md meal-list">
+                      <h3 class="py-2 text-lg font-bold text-center text-white bg-orange-600 time-slot">{{ time }}</h3>
+                      <div class="flex flex-col items-center p-4 meals-container">
+                          <div *ngIf="recipes.length > 0; else emptyList">
+                              @for (recipe of recipes; track $index) {
+                                  @if (recipe.timeSlot === time) {
+                                       <div class="flex flex-col items-center w-full pb-4 border-b border-gray-200 meal-item last:border-b-0">
+                                          <img class="object-cover w-full h-48 rounded-md" src="{{recipe.imageUrl}}" alt="{{ recipe.name }}" />
+                                          <div class="flex flex-col items-start w-full p-2 meal-details">
+                                              <h3 class="mb-1 text-xl font-semibold text-gray-800">{{ recipe.name }}</h3>
+                                              <p class="mb-2 text-sm text-gray-500 cooking-time">
+                                                  Cooking time: {{ recipe.cookingTime }} m | {{ recipe.calories }} cal
+                                              </p>
+                                              <p class="mb-1 font-bold text-green-500 ingredients">Ingredients:</p>
+                                              <ul *ngIf="recipe.ingredients" class="flex flex-wrap gap-2 mb-2">
+                                                  <li *ngFor="let ingredient of recipe.ingredients" class="px-2 py-1 text-sm bg-gray-200 rounded">
+                                                      {{ ingredient.name }}: <span class="text-green-500">${{ ingredient.price }}</span>
+                                                  </li>
+                                              </ul>
+                                               <div>
+                                                   <h5 class="mb-1 font-semibold">macros:</h5>
+                                                   <ul *ngIf="recipe.calories" class="flex flex-wrap gap-2">
+                                                      <li *ngFor="let macro of recipe.macros" class="text-sm">
+                                                          carbs: {{ macro.carb }} | protien: {{ macro.protien }} | fats: {{ macro.fats }}
+                                                      </li>
+                                                   </ul>
+                                               </div>
+                                              <button (click)="removeFromList(recipe.id)" class="self-center px-4 py-2 mt-2 font-bold text-white bg-pink-500 rounded hover:bg-pink-700">Remove</button>
+                                          </div>
+                                      </div>
+                                  }
+                              }
+                          </div>
+                      </div>
+                  </div>
+              }
+          }
+      }
+  </div>
+  <div class="mt-8 text-center summary">
+      <h3 class="mb-4 text-2xl text-green-600">Total Cost: ${{ totalCost }}</h3>
+      <div class="flex justify-center gap-4">
+          <button *ngIf="recipes.length != 0" class="px-4 py-2 font-bold text-white bg-orange-500 rounded clear hover:bg-orange-700" (click)="clearList()">
+              Clear List
+          </button>
+          <button *ngIf="totalCost != 0" class="px-4 py-2 font-bold text-white bg-green-500 rounded shopping-list hover:bg-green-700" (click)="navigateToShoppingList()">
+              shopping list
+          </button>
+      </div>
+  </div>
+  <footer class="p-4 text-center bg-gray-700">
+    <p class="p-4 text-center text-white">© 2024 Ammar yasser Enterprises Limited</p>
+</footer>
+
+  <ng-template #emptyList>
+      <p class="mt-4 text-center text-gray-700">Your meal planning list is empty!</p>
+  </ng-template>
+</div>

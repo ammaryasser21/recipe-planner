@@ -1,0 +1,22 @@
+<nav class="flex items-center justify-between p-4 bg-gray-700">
+    <span class="text-xl font-bold text-white cursor-pointer" (click)="router.navigate(['/home'])">Logo</span>
+    <div class="relative user-area">
+        <div *ngIf="currentUser; else signInButton" >
+            <button (click)="toggleOptions()"  class="flex items-center text-white hover:text-gray-200 focus:outline-none">
+                <span>{{currentUser.name}}</span>
+                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="inline-block w-4 h-4 ml-1">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="m19.5 8.25-7.5 7.5-7.5-7.5" />
+                </svg>
+            </button>
+            <div *ngIf="showOptions" class="absolute right-0 z-10 w-48 py-2 mt-2 bg-white rounded-md shadow-xl">
+                 <button class="block w-full px-4 py-2 text-left hover:bg-gray-100 focus:outline-none" (click)="navigateToProfile()">User Profile</button>
+                <button class="block w-full px-4 py-2 text-left hover:bg-gray-100 focus:outline-none" (click)="navigateToMealPlanning()">Meal Planning</button>
+                 <button class="block w-full px-4 py-2 text-left hover:bg-gray-100 focus:outline-none" (click)="navigateToShoppingList()">Shopping List</button>
+                 <button class="block w-full px-4 py-2 text-left hover:bg-gray-100 focus:outline-none" (click)="logout()">Logout</button>
+            </div>
+        </div>
+        <ng-template #signInButton>
+            <button (click)="router.navigate(['/login'])" class="text-white hover:text-gray-200 focus:outline-none">Sign In</button>
+        </ng-template>
+    </div>
+</nav>

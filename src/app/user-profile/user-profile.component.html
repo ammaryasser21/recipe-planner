@@ -1,0 +1,50 @@
+<app-navbar></app-navbar>
+<div class="container p-6 mx-auto font-sans">
+    <h2 class="mb-6 text-3xl font-bold text-gray-800">User Profile</h2>
+     <div class="mb-8 text-white bg-gray-700 rounded-md shadow-md ">
+        <div class="p-4 ">
+            <p class="mb-2"><strong class="font-medium">Username:</strong> <span class="ml-1 ">{{ currentUser?.name }}</span></p>
+            <p class="mb-2"><strong class="font-medium">Email:</strong> <span class="ml-1 ">{{ currentUser?.email }}</span></p>
+            <p class="mb-2"><strong class="font-medium">Phone Number:</strong> <span class="ml-1 ">{{ currentUser?.phone }}</span></p>
+        </div>
+    </div>
+
+    <h3 class="mb-4 text-2xl font-bold text-gray-800">Favorite Recipes</h3>
+    <div *ngIf="favoriteRecipes.length > 0" class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <mat-card *ngFor="let recipe of favoriteRecipes" class="transition-shadow duration-200 rounded-md shadow-md cursor-pointer recipe-card hover:shadow-lg" (click)="navigateToDetails(recipe.id)">
+            <img mat-card-image [src]="recipe.imageUrl" alt="" class="object-cover h-48 rounded-t-md">
+            <mat-card-content class="p-4">
+                <mat-card-title class="text-lg font-semibold text-gray-700" >{{recipe.name}}</mat-card-title>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div *ngIf="favoriteRecipes.length === 0" class="mb-4">
+        <p class="text-gray-600">No favorite recipes yet.</p>
+    </div>
+
+    <h3 class="mb-4 text-2xl font-bold text-gray-800">Saved Recipes</h3>
+    <div *ngIf="savedRecipes.length > 0" class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <mat-card *ngFor="let recipe of savedRecipes" class="transition-shadow duration-200 rounded-md shadow-md cursor-pointer recipe-card hover:shadow-lg" (click)="navigateToDetails(recipe.id)">
+             <img mat-card-image [src]="recipe.imageUrl" alt="" class="object-cover h-48 rounded-t-md">
+            <mat-card-content class="p-4">
+                <mat-card-title class="text-lg font-semibold text-gray-700">{{recipe.name}}</mat-card-title>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div *ngIf="savedRecipes.length === 0" class="mb-4">
+        <p class="text-gray-600">No saved recipes yet.</p>
+    </div>
+
+    <h3 class="mb-4 text-2xl font-bold text-gray-800">Posted Recipes</h3>
+    <div *ngIf="postedRecipes.length > 0" class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+        <mat-card *ngFor="let recipe of postedRecipes" class="transition-shadow duration-200 rounded-md shadow-md cursor-pointer recipe-card hover:shadow-lg" (click)="navigateToDetails(recipe.id)">
+            <img mat-card-image [src]="recipe.imageUrl" alt="" class="object-cover h-48 rounded-t-md">
+            <mat-card-content class="p-4">
+                <mat-card-title class="text-lg font-semibold text-gray-100">{{recipe.name}}</mat-card-title>
+            </mat-card-content>
+        </mat-card>
+    </div>
+    <div *ngIf="postedRecipes.length === 0" class="mb-4">
+        <p class="text-gray-600">No Posted recipes yet.</p>
+    </div>
+</div>
